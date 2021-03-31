@@ -3,14 +3,18 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from prediction.apps import DiabapiConfig
 import pandas as pd
 import numpy as np
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+from prediction.apps import DiabapiConfig
 # Create your views here.
 # Class based view to predict based on diabetes model
 class Deabetes_Model_Predict(APIView):
-    # permission_classes = [IsAuthenticated]
-    # authentication_classes = (TokenAuthentication,)
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, format=None):
         data_dict = request.data
 
