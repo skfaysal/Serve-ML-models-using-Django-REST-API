@@ -53,7 +53,7 @@ sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, square=True, cmap='Blues_r
 # labels, title and ticks
 ax.set_xlabel('Predicted labels')
 ax.set_ylabel('True labels')
-ax.set_title('Confusion Matrix')
+ax.set_title('Confusion Matrix For Logistic Regression')
 ax.xaxis.set_ticklabels(labels)
 ax.yaxis.set_ticklabels(labels)
 ax.figure.savefig(output_path+'/confusion matrix for logistic regression.png')
@@ -86,7 +86,7 @@ sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, square=True, cmap='Blues_r
 # labels, title and ticks
 ax.set_xlabel('Predicted labels')
 ax.set_ylabel('True labels')
-ax.set_title('Confusion Matrix')
+ax.set_title('Confusion Matrix For Random Forest')
 ax.xaxis.set_ticklabels(labels)
 ax.yaxis.set_ticklabels(labels)
 ax.figure.savefig(output_path+'/confusion matrix for Random Forest.png')
@@ -121,7 +121,7 @@ sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, square=True, cmap='Blues_r
 # labels, title and ticks
 ax.set_xlabel('Predicted labels')
 ax.set_ylabel('True labels')
-ax.set_title('Confusion Matrix')
+ax.set_title('Confusion Matrix For KNN')
 ax.xaxis.set_ticklabels(labels)
 ax.yaxis.set_ticklabels(labels)
 ax.figure.savefig(output_path+'/confusion matrix for KNN.png')
