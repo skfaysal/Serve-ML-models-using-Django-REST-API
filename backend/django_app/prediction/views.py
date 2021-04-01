@@ -18,6 +18,8 @@ class Deabetes_Model_Predict(APIView):
     def post(self, request, format=None):
         data_dict = request.data
 
+        print("Recieved Data: ",data_dict)
+
         keys=[]
         values=[]
         for key in data_dict:
@@ -38,6 +40,8 @@ class Deabetes_Model_Predict(APIView):
         target_map = {0: 'No Diabetes', 1: 'Diabetes Detected'}
         y_pred = y_pred.map(target_map).to_numpy()
         response_dict = {"Prediced Diabetes status": y_pred[0]}
+
+        print("\nPrediction Result: ",response_dict)
 
         return Response(response_dict, status=200)
 
