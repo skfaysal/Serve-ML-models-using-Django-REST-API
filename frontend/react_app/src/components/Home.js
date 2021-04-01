@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.main,
     },
     sliders: {
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
         paddingLeft: theme.spacing(4),
         paddingRight: theme.spacing(4),
         marginBottom: theme.spacing(2),
     },
     slidertop: {
-        marginTop: theme.spacing(4),
+        marginTop: theme.spacing(2),
     }
 }));
 
