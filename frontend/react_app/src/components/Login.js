@@ -1,30 +1,20 @@
+
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { connect } from 'react-redux';
+import * as actions from '../store/authActions';
+
+import { useHistory, useLocation } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,8 +36,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+function Login(props) {
   const classes = useStyles();
+  const [username, setuserName] = React.useState(null);
+  const [password, setPassword] = React.useState(null);
+
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
+
+  React.useEffect(() => {
+    if (props.isAuthenticated) { history.replace(from) };
+  });
+
+
+  const handleFormFieldChange = (event) => {
+    switch (event.target.id) {
+      case 'username': setuserName(event.target.value); break;
+      case 'password': setPassword(event.target.value); break;
+      default: return null;
+    }
+
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onAuth(username, password);
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,7 +74,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +85,7 @@ export default function SignIn() {
             name="username"
             autoComplete="username"
             autoFocus
+            onChange={handleFormFieldChange}
           />
           <TextField
             variant="outlined"
@@ -81,13 +97,28 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleFormFieldChange}
           />
- 
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (username, password) => dispatch(actions.authLogin(username, password))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login);
